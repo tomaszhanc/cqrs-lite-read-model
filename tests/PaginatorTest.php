@@ -26,7 +26,7 @@ class PaginatorTest extends TestCase
     {
         $meta = $this->paginator->getMeta();
 
-        $this->assertEquals([
+        $this->assertSame([
             'limit' => 100,
             'offset' => 10,
             'total' => 2
