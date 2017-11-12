@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace ReadModel\Bridge\Doctrine\Query;
 
-class TooManyColumnsException extends \Exception
+use ReadModel\InvalidArgumentException;
+
+class TooManyColumnsException extends InvalidArgumentException
 {
     public function __construct(array $fields)
     {

@@ -8,6 +8,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use ReadModel\Bridge\Doctrine\ApplyFilters;
 use ReadModel\Bridge\Doctrine\DbalPaginator;
 use ReadModel\Filters\Filters;
+use ReadModel\NotFoundException;
 use ReadModel\Paginator;
 
 abstract class DbalQuery

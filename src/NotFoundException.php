@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace ReadModel\Bridge\Doctrine\Query;
+namespace ReadModel;
 
 class NotFoundException extends \DomainException
 {
