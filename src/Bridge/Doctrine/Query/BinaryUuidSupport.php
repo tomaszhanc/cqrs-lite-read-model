@@ -6,12 +6,18 @@ namespace ReadModel\Bridge\Doctrine\Query;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Ramsey\Uuid\Exception\InvalidUuidStringException;
 use Ramsey\Uuid\Uuid;
+use ReadModel\Walker\WalkerBuilder;
 
-trait TransformUuidsToBytes
+trait BinaryUuidSupport
 {
     protected function transformParameters(QueryBuilder $qb, string ...$parameters): void
     {
         $this->transformUuidsToBytes($qb, $parameters);
+    }
+
+    protected function createWalkerBuilder(array $uuids): WalkerBuilder
+    {
+        return parent::createWalkerBuilder($uuids)->withBinaryUuidCasting($uuids);
     }
 
     private function transformUuidsToBytes(QueryBuilder $qb, array $parameters): void

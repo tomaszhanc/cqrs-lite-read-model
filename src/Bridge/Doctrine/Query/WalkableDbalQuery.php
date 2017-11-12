@@ -58,12 +58,15 @@ abstract class WalkableDbalQuery extends DbalQuery
         $this->walkerBuilder->with($callable);
     }
 
-    protected function buildWalker(array $uuids): ResultWalker
+    protected function createWalkerBuilder(array $uuids): WalkerBuilder
     {
         return $this->walkerBuilder
             ->withCamelCasedFieldNames()
-            ->withBinaryUuidCasting($uuids)
-            ->withScalarCasting($this->typeMapping)
-            ->build();
+            ->withScalarCasting($this->typeMapping);
+    }
+
+    protected function buildWalker(array $uuids): ResultWalker
+    {
+        return $this->walkerBuilder->build();
     }
 }
