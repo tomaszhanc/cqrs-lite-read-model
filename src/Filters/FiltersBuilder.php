@@ -11,7 +11,7 @@ abstract class FiltersBuilder
     /** @var OrderBy */
     protected $defaultOrder;
 
-    /** @var ?int */
+    /** @var int|null */
     protected $defaultLimit;
 
     /** @var int */

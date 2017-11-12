@@ -60,7 +60,8 @@ final class WalkerBuilder
 
     public function withEmbedded(...$prefixes): self
     {
-        return $this->prefixes = array_merge($this->prefixes, $prefixes);
+        $this->prefixes = array_merge($this->prefixes, $prefixes);
+        return $this;
     }
 
     /**
