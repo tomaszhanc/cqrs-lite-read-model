@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace ReadModel\Walker;
 
+use ReadModel\InvalidArgumentException;
+
 final class WalkerBuilder
 {
     /** @var BinaryTransformer */
@@ -43,7 +45,7 @@ final class WalkerBuilder
     public function withBinaryCasting(...$keys): self
     {
         if ($this->transformer === null) {
-            throw new \InvalidArgumentException('You have to provide BinaryTransformer to use BinaryTransformerWalker');
+            throw new InvalidArgumentException('You have to provide BinaryTransformer to use BinaryTransformerWalker');
         }
 
         return $this->addWalker(new BinaryTransformerWalker($this->transformer, ...$keys));

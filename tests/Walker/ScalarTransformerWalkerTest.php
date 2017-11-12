@@ -27,7 +27,7 @@ class ScalarTransformerWalkerTest extends TestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
+     * @expectedException \ReadModel\InvalidArgumentException
      */
     public function should_prevent_from_transforming_to_unknown_type()
     {

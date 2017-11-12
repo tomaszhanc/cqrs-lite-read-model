@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace ReadModel\Walker;
 
+use ReadModel\InvalidArgumentException;
+
 class ScalarTransformerWalker implements ResultWalker
 {
     /** @var array */
@@ -39,7 +41,7 @@ class ScalarTransformerWalker implements ResultWalker
             return call_user_func($function, $value);
         }
 
-        throw new \InvalidArgumentException(sprintf(
+        throw new InvalidArgumentException(sprintf(
             'Type "%s" is invalid. There is no "%s" function. Fix your type or add that function to global namespace',
             $type,
             $function
