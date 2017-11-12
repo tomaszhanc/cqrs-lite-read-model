@@ -67,6 +67,6 @@ abstract class WalkableDbalQuery extends DbalQuery
 
     protected function buildWalker(array $uuids): ResultWalker
     {
-        return $this->walkerBuilder->build();
+        return $this->createWalkerBuilder($uuids)->build();
     }
 }
