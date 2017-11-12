@@ -6,22 +6,18 @@ namespace ReadModel\Filters\DataTransformer;
 interface DataTransformer
 {
     /**
-     * Transform a value.
+     * Transform a value to compound value, eg: object or array.
      *
      * @param $value
      * @return mixed
-     *
-     * // @todo używane w Filters::useFilter() (czyli pewnie tylko w Query :) )
      */
     public function transform($value);
 
     /**
-     * Simplify a value.
+     * Simplify a value, mostly to scalar or string.
      *
      * @param $value
      * @return mixed
-     *
-     * // @todo używane w Filters::addMetaToPaginator() (przy budowaniu mety dla query)
      */
     public function simplify($value);
 }

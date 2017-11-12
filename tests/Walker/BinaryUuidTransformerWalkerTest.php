@@ -3,20 +3,19 @@ declare(strict_types=1);
 
 namespace ReadModel\Tests\Walker;
 
-use ReadModel\Walker\BinaryTransformer;
-use ReadModel\Walker\BinaryTransformerWalker;
+use ReadModel\Walker\BinaryUuidTransformer;
+use ReadModel\Walker\BinaryUuidTransformerWalker;
 use PHPUnit\Framework\TestCase;
 
-class BinaryTransformerWalkerTest extends TestCase
+class BinaryUuidTransformerWalkerTest extends TestCase
 {
-
     /**
      * @test
      */
     public function should_transform_binary_values_to_strings()
     {
-        $transformer = $this->prophesize(BinaryTransformer::class);
-        $walker = new BinaryTransformerWalker($transformer->reveal(), ['id', 'parent_id', 'category_id']);
+        $transformer = $this->prophesize(BinaryUuidTransformer::class);
+        $walker = new BinaryUuidTransformerWalker($transformer->reveal(), 'id', 'parent_id', 'category_id');
 
         $transformer->transformToString('id')->shouldBeCalledTimes(1);
         $transformer->transformToString('parent_id')->shouldBeCalledTimes(1);

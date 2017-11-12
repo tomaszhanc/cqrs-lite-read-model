@@ -3,15 +3,15 @@ declare(strict_types=1);
 
 namespace ReadModel\Walker;
 
-class BinaryTransformerWalker implements ResultWalker
+class BinaryUuidTransformerWalker implements ResultWalker
 {
-    /** @var BinaryTransformer */
+    /** @var BinaryUuidTransformer */
     private $transformer;
 
     /** @var array */
     private $keys;
 
-    public function __construct(BinaryTransformer $transformer, string ...$keys)
+    public function __construct(BinaryUuidTransformer $transformer, string ...$keys)
     {
         $this->transformer = $transformer;
         $this->keys = array_combine($keys, $keys);

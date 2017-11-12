@@ -7,7 +7,7 @@ use ReadModel\InvalidArgumentException;
 
 final class WalkerBuilder
 {
-    /** @var BinaryTransformer */
+    /** @var BinaryUuidTransformer */
     private $transformer;
 
     /** @var ResultWalker[] */
@@ -22,7 +22,7 @@ final class WalkerBuilder
     /** @var bool */
     private $camelCase = false;
 
-    public function __construct(BinaryTransformer $transformer = null)
+    public function __construct(BinaryUuidTransformer $transformer = null)
     {
         $this->transformer = $transformer;
     }
@@ -42,13 +42,15 @@ final class WalkerBuilder
         return $this;
     }
 
-    public function withBinaryCasting(...$keys): self
+    public function withBinaryUuidCasting(...$keys): self
     {
         if ($this->transformer === null) {
-            throw new InvalidArgumentException('You have to provide BinaryTransformer to use BinaryTransformerWalker');
+            throw new InvalidArgumentException(
+                'You have to provide BinaryUuidTransformer to use BinaryUuidTransformerWalker'
+            );
         }
 
-        return $this->addWalker(new BinaryTransformerWalker($this->transformer, ...$keys));
+        return $this->addWalker(new BinaryUuidTransformerWalker($this->transformer, ...$keys));
     }
 
     public function withScalarCasting(array $mapping): self

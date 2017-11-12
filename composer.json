@@ -1,0 +1,32 @@
+{
+    "name": "dontknow/yet",
+    "keywords": ["read model", "cqrs lite"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tomasz Hanc"
+        }
+    ],
+    "require": {
+        "php":  ">=7.1",
+        "beberlei/assert": "^2.7"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.0"
+    },
+    "suggest": {
+        "doctrine/dbal": "For using Dbal implementation of Paginator",
+        "symfony/http-foundation": "For using Request implementation of FiltersBuilder",
+        "ramsey/uuid": "For using Uuid implementation for BinaryUuidTransformer"
+    },
+    "autoload": {
+        "psr-4": {
+            "ReadModel\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ReadModel\\Tests\\": "tests/"
+        }
+    }
+}
