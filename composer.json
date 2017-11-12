@@ -21,8 +21,10 @@
     },
     "suggest": {
         "doctrine/dbal": "For using Dbal implementation of Paginator",
+        "ramsey/uuid": "For using Uuid implementation for BinaryUuidTransformer",
         "symfony/http-foundation": "For using Request implementation of FiltersBuilder",
-        "ramsey/uuid": "For using Uuid implementation for BinaryUuidTransformer"
+        "symfony/dependency-injection": "For using a bundle",
+        "symfony/http-kernel": "For using a bundle"
     },
     "autoload": {
         "psr-4": {
