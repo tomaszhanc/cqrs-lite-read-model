@@ -17,7 +17,9 @@ trait BinaryUuidSupport
 
     protected function createWalkerBuilder(array $uuids): WalkerBuilder
     {
-        return parent::createWalkerBuilder($uuids)->withBinaryUuidCasting($uuids);
+        $uuids = array_merge(['id'], $uuids);
+
+        return parent::createWalkerBuilder($uuids)->withBinaryUuidCasting(...$uuids);
     }
 
     private function transformUuidsToBytes(QueryBuilder $qb, array $parameters): void
