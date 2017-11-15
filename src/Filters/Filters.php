@@ -90,7 +90,7 @@ final class Filters
                 }
             }
 
-            return $queries ?? [];
+            return isset($queries) ? array_filter($queries) : [];
         });
 
         $paginator->addMeta('order', function () {
