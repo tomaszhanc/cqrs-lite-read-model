@@ -27,7 +27,7 @@ trait BinaryUuidSupport
         $parameters = array_merge(['id'], $parameters);
 
         foreach ($qb->getParameters() as $key => $value) {
-            if (empty($value) && !in_array($key, $parameters)) {
+            if (empty($value) || !in_array($key, $parameters)) {
                 continue;
             }
 
