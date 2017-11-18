@@ -11,7 +11,7 @@ class RequestFiltersBuilder extends FiltersBuilder
     /** @var Request */
     private $request;
 
-    public function __construct(Request $request, string $defaultOrder, int $defaultLimit = null, int $defaultOffset = 0)
+    public function __construct(Request $request, string $defaultOrder = null, int $defaultLimit = null, int $defaultOffset = 0)
     {
         parent::__construct($defaultOrder, $defaultLimit, $defaultOffset);
         $this->request = $request;

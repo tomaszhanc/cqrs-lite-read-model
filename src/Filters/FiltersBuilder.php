@@ -4,11 +4,10 @@ declare(strict_types=1);
 namespace ReadModel\Filters;
 
 use ReadModel\Filters\DataTransformer as T;
-use ReadModel\InvalidArgumentException;
 
 abstract class FiltersBuilder
 {
-    /** @var OrderBy */
+    /** @var OrderBy|null */
     protected $defaultOrder;
 
     /** @var int|null */
@@ -23,12 +22,15 @@ abstract class FiltersBuilder
     /** @var array */
     private $ordersBy = [];
 
-    public function __construct(string $defaultOrder, int $defaultLimit = null, int $defaultOffset = 0)
+    public function __construct(string $defaultOrder = null, int $defaultLimit = null, int $defaultOffset = 0)
     {
-        $this->defaultOrder = new OrderBy($defaultOrder);
         $this->defaultLimit = $defaultLimit;
         $this->defaultOffset = $defaultOffset;
-        $this->addOrderBy($this->defaultOrder->field());
+
+        if ($defaultOrder !== null) {
+            $this->defaultOrder = new OrderBy($defaultOrder);
+            $this->addOrderBy($this->defaultOrder->field());
+        }
     }
 
     public function addFilter(string $name, $defaultValue = null, T\DataTransformer $transformer = null): self
@@ -108,24 +110,9 @@ abstract class FiltersBuilder
             return new OrderBy(trim($order));
         }, explode(',', $order));
 
-        $this->guardAgainstInvalidOrder($orders);
-
-        return $orders;
-    }
-
-    private function guardAgainstInvalidOrder(array $orders)
-    {
-        sort($this->ordersBy);
-
-        foreach ($orders as $order) {
-            if (!in_array($order->field(), $this->ordersBy)) {
-                throw new InvalidArgumentException(sprintf(
-                    'Invalid order field [%s]. You can order by: %s',
-                    $order->field(),
-                    implode(', ', $this->ordersBy)
-                ));
-            }
-        }
+        return array_filter($orders, function (OrderBy $orderBy) {
+            return in_array($orderBy->field(), $this->ordersBy);
+        });
     }
 
     abstract protected function getValue(string $name, $defaultValue);
