@@ -10,7 +10,7 @@ class TooManyColumnsException extends InvalidArgumentException
     public function __construct(array $fields)
     {
         parent::__construct(sprintf(
-            "For a scalar query you should select only one column, but %d were selected: [%s]",
+            'For a scalar query you should select only one column, but %d were selected: [%s]',
             count($fields),
             implode(', ', $fields)
         ));

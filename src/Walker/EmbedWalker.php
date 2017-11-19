@@ -32,7 +32,7 @@ class EmbedWalker implements ResultWalker
     {
         // filter out prefixed fields
         $prefixed = array_filter($result, function ($key) use ($prefix) {
-            return substr($key, 0, strlen($prefix)) === $prefix;
+            return strpos($key, $prefix) === 0;
         }, ARRAY_FILTER_USE_KEY);
 
         // remove filtered out fields from result

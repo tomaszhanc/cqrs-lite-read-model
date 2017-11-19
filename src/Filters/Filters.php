@@ -108,7 +108,7 @@ final class Filters
     private function guardAgainstInvalidFilter(string $name): void
     {
         if (!isset($this->filters[$name])) {
-            throw new InvalidArgumentException("Filter '$name' doesn't exist");
+            throw InvalidArgumentException::filterDoesNotExist($name);
         }
     }
 

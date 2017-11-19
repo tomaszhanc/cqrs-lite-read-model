@@ -41,10 +41,6 @@ class ScalarTransformerWalker implements ResultWalker
             return $function($value);
         }
 
-        throw new InvalidArgumentException(sprintf(
-            'Type "%s" is invalid. There is no "%s" function. Fix your type or add that function to global namespace',
-            $type,
-            $function
-        ));
+        throw InvalidArgumentException::invalidType($type, $function);
     }
 }

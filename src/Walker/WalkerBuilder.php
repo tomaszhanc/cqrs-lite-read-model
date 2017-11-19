@@ -64,9 +64,7 @@ final class WalkerBuilder
     public function withBinaryUuidCasting(...$keys): self
     {
         if ($this->transformer === null) {
-            throw new InvalidArgumentException(
-                'You have to provide BinaryUuidTransformer to use BinaryUuidTransformerWalker'
-            );
+            throw InvalidArgumentException::binaryUuidTransformerMustBeProvided();
         }
 
         $this->binaryKeys = array_merge($this->binaryKeys, $keys);

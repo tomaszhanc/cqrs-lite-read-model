@@ -1,6 +1,6 @@
 {
     "name": "tomaszhanc/cqrs-lite-read-model",
-    "keywords": ["read model", "cqrs lite"],
+    "keywords": ["read model", "cqrs lite", "cqrs"],
     "license": "MIT",
     "authors": [
         {
