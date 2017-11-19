@@ -27,6 +27,21 @@ class ScalarTransformerWalkerTest extends TestCase
 
     /**
      * @test
+     */
+    public function should_not_transform_null_values()
+    {
+        $walker = new ScalarTransformerWalker([
+            'id' => 'int'
+        ]);
+
+        $this->assertSame(
+            ['id' => null, 'name' => 'name'],
+            $walker->walk(['id' => null, 'name' => 'name'])
+        );
+    }
+
+    /**
+     * @test
      * @expectedException \ReadModel\InvalidArgumentException
      */
     public function should_prevent_from_transforming_to_unknown_type()

@@ -20,8 +20,8 @@ class DbalPaginator extends Paginator
     protected function findAll(): array
     {
         $this->qb
-            ->setMaxResults($this->limit)
-            ->setFirstResult($this->offset);
+             ->setMaxResults($this->limit)
+             ->setFirstResult($this->offset);
 
         return $this->qb->execute()->fetchAll();
     }
@@ -31,9 +31,9 @@ class DbalPaginator extends Paginator
         $qb = clone $this->qb;
 
         $qb->select('COUNT(*)')
-            ->setMaxResults(null)
-            ->setFirstResult(null);
-        $qb->resetQueryPart('orderBy');
+           ->setMaxResults(null)
+           ->setFirstResult(null)
+           ->resetQueryPart('orderBy');
 
         return (int) $qb->execute()->fetchColumn();
     }

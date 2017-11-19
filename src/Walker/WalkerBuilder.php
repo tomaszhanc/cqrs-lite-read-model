@@ -19,6 +19,12 @@ final class WalkerBuilder
     /** @var array */
     private $prefixes = [];
 
+    /** @var array */
+    private $binaryKeys = [];
+
+    /** @var array */
+    private $scalarMapping = [];
+
     /** @var bool */
     private $camelCase = false;
 
@@ -34,7 +40,17 @@ final class WalkerBuilder
     }
 
     /**
-     * Callable walkers are added as second walker from the end
+     * Embed walker is added as the first walker.
+     */
+    public function withEmbedded(...$prefixes): self
+    {
+        $this->prefixes = array_merge($this->prefixes, $prefixes);
+        return $this;
+    }
+
+
+    /**
+     * Callable walkers are added after embed walker.
      */
     public function with(callable $callable): self
     {
@@ -42,6 +58,9 @@ final class WalkerBuilder
         return $this;
     }
 
+    /**
+     * Binary casting is added after callable walkers.
+     */
     public function withBinaryUuidCasting(...$keys): self
     {
         if ($this->transformer === null) {
@@ -50,22 +69,21 @@ final class WalkerBuilder
             );
         }
 
-        return $this->addWalker(new BinaryUuidTransformerWalker($this->transformer, ...$keys));
-    }
-
-    public function withScalarCasting(array $mapping): self
-    {
-        return $this->addWalker(new ScalarTransformerWalker($mapping));
-    }
-
-    public function withEmbedded(...$prefixes): self
-    {
-        $this->prefixes = array_merge($this->prefixes, $prefixes);
+        $this->binaryKeys = array_merge($this->binaryKeys, $keys);
         return $this;
     }
 
     /**
-     * It would be the latest walker which would walk through results.
+     * Scalar casting is added after binary casting walker.
+     */
+    public function withScalarCasting(array $mapping): self
+    {
+        $this->scalarMapping = array_merge($this->scalarMapping, $mapping);
+        return $this;
+    }
+
+    /**
+     * Camel cased walker is added as the last walker.
      */
     public function withCamelCasedFieldNames(): self
     {
@@ -83,8 +101,15 @@ final class WalkerBuilder
             $this->addWalker(new CallableWalker($callable));
         }
 
+        if (!empty($this->prefixes)) {
+            $this->addWalker(new BinaryUuidTransformerWalker($this->transformer, ...$this->binaryKeys));
+        }
+
+        if (!empty($this->prefixes)) {
+            $this->addWalker(new ScalarTransformerWalker($this->scalarMapping));
+        }
+
         if ($this->camelCase) {
-            // it always should be the latest walker
             $this->addWalker(new KeysToCamelCaseWalker());
         }
 
@@ -94,11 +119,13 @@ final class WalkerBuilder
         return $walker;
     }
 
-    private function clearBuilder()
+    private function clearBuilder(): void
     {
         $this->walkers = [];
-        $this->prefixes = [];
         $this->callables = [];
+        $this->prefixes = [];
+        $this->binaryKeys = [];
+        $this->scalarMapping = [];
         $this->camelCase = false;
     }
 }

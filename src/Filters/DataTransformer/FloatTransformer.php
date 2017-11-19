@@ -7,7 +7,7 @@ class FloatTransformer implements DataTransformer
 {
     public function transform($value)
     {
-        return floatval($value);
+        return (float) $value;
     }
 
     public function simplify($value)

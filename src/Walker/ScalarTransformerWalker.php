@@ -34,11 +34,11 @@ class ScalarTransformerWalker implements ResultWalker
     private function transform($value, $type)
     {
         $type = strtolower($type);
-        $type = 'boolean' == $type ? 'bool' : $type;
+        $type = 'boolean' === $type ? 'bool' : $type;
         $function = $type.'val';
 
         if (function_exists($function)) {
-            return call_user_func($function, $value);
+            return $function($value);
         }
 
         throw new InvalidArgumentException(sprintf(

@@ -11,7 +11,7 @@ class BooleanTransformer implements DataTransformer
             return true;
         }
 
-        if (in_array($value, [0, false, 'false', '0', null], true)) {
+        if (in_array($value, [0, false, 'false', '0', ''], true)) {
             return false;
         }
 

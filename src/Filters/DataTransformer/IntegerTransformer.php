@@ -7,7 +7,7 @@ class IntegerTransformer implements DataTransformer
 {
     public function transform($value)
     {
-        return intval($value);
+        return (int) $value;
     }
 
     public function simplify($value)
