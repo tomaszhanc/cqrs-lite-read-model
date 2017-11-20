@@ -99,11 +99,11 @@ final class WalkerBuilder
             $this->addWalker(new CallableWalker($callable));
         }
 
-        if (!empty($this->prefixes)) {
+        if (!empty($this->binaryKeys)) {
             $this->addWalker(new BinaryUuidTransformerWalker($this->transformer, ...$this->binaryKeys));
         }
 
-        if (!empty($this->prefixes)) {
+        if (!empty($this->scalarMapping)) {
             $this->addWalker(new ScalarTransformerWalker($this->scalarMapping));
         }
 
