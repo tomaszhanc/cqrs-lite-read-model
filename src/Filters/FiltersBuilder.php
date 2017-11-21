@@ -103,7 +103,7 @@ abstract class FiltersBuilder
         $order = $this->getOrderBy();
 
         if ($order === null) {
-            return [$this->defaultOrder];
+            return array_filter([$this->defaultOrder]);
         }
 
         $orders = array_map(function (string $order) {
