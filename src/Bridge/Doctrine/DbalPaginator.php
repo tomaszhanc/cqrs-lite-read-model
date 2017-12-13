@@ -8,6 +8,8 @@ use ReadModel\Paginator;
 
 class DbalPaginator extends Paginator
 {
+    use DbalPaginatorCapabilities;
+
     /** @var QueryBuilder */
     private $qb;
 
@@ -15,26 +17,5 @@ class DbalPaginator extends Paginator
     {
         parent::__construct($limit, $offset);
         $this->qb = $qb;
-    }
-
-    protected function findAll(): array
-    {
-        $this->qb
-             ->setMaxResults($this->limit)
-             ->setFirstResult($this->offset);
-
-        return $this->qb->execute()->fetchAll();
-    }
-
-    protected function getTotal(): int
-    {
-        $qb = clone $this->qb;
-
-        $qb->select('COUNT(*)')
-           ->setMaxResults(null)
-           ->setFirstResult(null)
-           ->resetQueryPart('orderBy');
-
-        return (int) $qb->execute()->fetchColumn();
     }
 }

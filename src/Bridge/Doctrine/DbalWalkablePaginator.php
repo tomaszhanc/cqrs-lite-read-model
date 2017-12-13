@@ -9,6 +9,8 @@ use ReadModel\Walker\ResultWalker;
 
 class DbalWalkablePaginator extends WalkablePaginator
 {
+    use DbalPaginatorCapabilities;
+
     /** @var QueryBuilder */
     private $qb;
 
@@ -16,25 +18,5 @@ class DbalWalkablePaginator extends WalkablePaginator
     {
         parent::__construct($limit, $offset, $resultWalker);
         $this->qb = $qb;
-    }
-
-    protected function findAll(): array
-    {
-        $this->qb
-             ->setMaxResults($this->limit)
-             ->setFirstResult($this->offset);
-
-        return $this->qb->execute()->fetchAll();
-    }
-
-    protected function getTotal(): int
-    {
-        $qb = clone $this->qb;
-        $qb->select('COUNT(*)')
-           ->setMaxResults(null)
-           ->setFirstResult(null)
-           ->resetQueryPart('orderBy');
-
-        return (int) $qb->execute()->fetchColumn();
     }
 }
