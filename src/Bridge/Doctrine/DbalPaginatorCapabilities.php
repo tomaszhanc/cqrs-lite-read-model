@@ -7,9 +7,10 @@ trait DbalPaginatorCapabilities
 {
     protected function findAll(): array
     {
-        $this->qb
-             ->setMaxResults($this->limit)
-             ->setFirstResult($this->offset);
+        if (null !== $this->limit) {
+            $this->qb->setMaxResults($this->limit);
+        }
+        $this->qb->setFirstResult($this->offset);
 
         return $this->qb->execute()->fetchAll();
     }
