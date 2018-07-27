@@ -26,7 +26,7 @@ abstract class WalkableDbalQuery extends DbalQuery
 
     protected function createPaginator(QueryBuilder $qb, int $limit = null, $offset = 0, string ...$parameters): Paginator
     {
-        $limit = $limit ?? $this->defaultLimit;
+        $limit = $limit;
         $this->transformParameters($qb, ...$parameters);
 
         return new DbalWalkablePaginator($qb, $limit, $offset, $this->buildWalker($parameters));

@@ -16,9 +16,6 @@ abstract class DbalQuery
     /** @var Connection */
     protected $connection;
 
-    /** @var int */
-    protected $defaultLimit = 100;
-
     /** @var array */
     protected $columnMapping = [];
 
@@ -34,7 +31,7 @@ abstract class DbalQuery
 
     protected function createPaginator(QueryBuilder $qb, int $limit = null, $offset = 0, string ...$parameters): Paginator
     {
-        $limit = $limit ?? $this->defaultLimit;
+        $limit = $limit;
         $this->transformParameters($qb, ...$parameters);
 
         return new DbalPaginator($qb, $limit, $offset);

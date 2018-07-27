@@ -24,7 +24,11 @@ class RequestFiltersBuilder extends FiltersBuilder
 
     protected function getLimit(): ?int
     {
-        return $this->request->query->getInt('limit', $this->defaultLimit);
+        if (null === $this->request->query->get('limit')) {
+            return $this->defaultLimit;
+        }
+
+        return $this->request->query->getInt('limit');
     }
 
     protected function getOffset(): int
