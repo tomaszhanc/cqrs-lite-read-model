@@ -17,7 +17,7 @@ abstract class DbalQuery
     protected $connection;
 
     /** @var int */
-    protected $defaultLimit = 100;
+    protected $defaultLimit = null;
 
     /** @var array */
     protected $columnMapping = [];
